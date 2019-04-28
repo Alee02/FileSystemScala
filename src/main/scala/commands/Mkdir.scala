@@ -1,9 +1,13 @@
 package commands
-import files.Directory
+import files.{DirEntry, Directory}
 import filesystem.State
 
 class Mkdir(name: String) extends Command {
 
+  def updateStructure(currentDirectory: Directory, path: List[String],
+                      newEntry: DirEntry) = {
+    
+  }
   def checkIllegal(name: String): Boolean = {
     name contains "."
   }
@@ -18,7 +22,7 @@ class Mkdir(name: String) extends Command {
 
     val newRoot = updateStructure(state.root, allDirsInPath, newDir)
 
-    val newWd = newRoot.findDescendant(allDirsInPath, )
+    val newWd = newRoot.findDescendant(allDirsInPath)
   }
 
   override def apply(state: State): State = {
