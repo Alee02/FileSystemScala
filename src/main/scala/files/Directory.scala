@@ -8,7 +8,7 @@ class Directory(override val parentPath: String, override val name: String, val 
   def hasEntry(name: String): Boolean = {
     ???
   }
-  def findDescendant(path: List[String]): DirEntry = ???
+  def findDescendant(path: List[String]): Directory = ???
 
 }
 

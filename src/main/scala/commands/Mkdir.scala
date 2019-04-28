@@ -5,8 +5,8 @@ import filesystem.State
 class Mkdir(name: String) extends Command {
 
   def updateStructure(currentDirectory: Directory, path: List[String],
-                      newEntry: DirEntry) = {
-    
+                      newEntry: DirEntry): Directory = {
+    ???
   }
   def checkIllegal(name: String): Boolean = {
     name contains "."
@@ -23,6 +23,8 @@ class Mkdir(name: String) extends Command {
     val newRoot = updateStructure(state.root, allDirsInPath, newDir)
 
     val newWd = newRoot.findDescendant(allDirsInPath)
+
+    State(newRoot, newWd)
   }
 
   override def apply(state: State): State = {
