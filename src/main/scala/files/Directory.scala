@@ -3,7 +3,9 @@ package files
 class Directory(override val parentPath: String, override val name: String, val contents: List[DirEntry])
   extends DirEntry(parentPath, name) {
 
-  def getAllFoldersInPath(): List[String] = ???
+  def getAllFoldersInPath(): List[String] = {
+    path.substring(1).split(Directory.SEPARATOR).toList
+  }
 
   def hasEntry(name: String): Boolean = {
     ???
