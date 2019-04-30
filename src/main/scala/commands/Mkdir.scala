@@ -13,7 +13,6 @@ class Mkdir(name: String) extends Command {
 
     def updateStructure(currentDirectory: Directory, path: List[String],
                         newEntry: DirEntry): Directory = {
-      println("Update was called")
       if(path.isEmpty) currentDirectory.addEntry(newEntry)
       else {
         val oldEntry: Directory = currentDirectory.findEntry(path.head).asDirectory

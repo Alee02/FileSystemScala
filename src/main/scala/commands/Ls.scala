@@ -8,7 +8,7 @@ class Ls extends Command {
     if(contents.isEmpty) ""
     else {
       val entry = contents.head
-      """\""" + entry.name + " [" + entry.getType + "]"  + " \n" + createFormattedOutput(contents.tail)
+      "/" + entry.name + " [" + entry.getType + "]"  + " \n" + createFormattedOutput(contents.tail)
     }
   }
 
