@@ -4,23 +4,26 @@ import filesystem.State
 
 class Mkdir(name: String) extends Command {
 
-  def updateStructure(currentDirectory: Directory, path: List[String],
-                      newEntry: DirEntry): Directory = {
-    if(path.isEmpty) currentDirectory.addEntry(newEntry)
-    else {
-      val oldEntry: DirEntry = currentDirectory.findEntry(path.head)
-      currentDirectory.replaceEntry(oldEntry.name, updateStructure(oldEntry.asDirectory, path.tail, newEntry))
-    }
-  }
+
   def checkIllegal(name: String): Boolean = {
     name contains "."
   }
 
   def makeDirectory(name: String, state: State): State = {
-    val wd = state.wd
-    val fullPath = wd.path
 
-    val allDirsInPath = wd.getAllFoldersInPath()
+    def updateStructure(currentDirectory: Directory, path: List[String],
+                        newEntry: DirEntry): Directory = {
+      println("Update was called")
+      if(path.isEmpty) currentDirectory.addEntry(newEntry)
+      else {
+        val oldEntry: Directory = currentDirectory.findEntry(path.head).asDirectory
+        currentDirectory.replaceEntry(oldEntry.name, updateStructure(oldEntry, path.tail, newEntry))
+      }
+    }
+
+    val wd = state.wd
+
+    val allDirsInPath = wd.getAllFoldersInPath
 
     val newDir = Directory.empty(wd.path, name)
 
