@@ -4,6 +4,20 @@ import filesystem.State
 
 class Mkdir(name: String) extends Command {
 
+  override def apply(state: State): State = {
+    val wd = state.wd
+    if(wd.hasEntry(name)) {
+      state.setMessage(s"Entry $name already exists!")
+    } else if (name.contains(Directory.SEPARATOR)) {
+      // TODO mkdir -p something/somethingElse
+      state.setMessage(s"$name must not contains separators!")
+    } else if (checkIllegal(name)) {
+      state.setMessage(s"$name: illegal entry name!")
+    } else {
+      makeDirectory(name, state)
+    }
+  }
+
 
   def checkIllegal(name: String): Boolean = {
     name contains "."
@@ -31,19 +45,5 @@ class Mkdir(name: String) extends Command {
     val newWd = newRoot.findDescendant(allDirsInPath)
 
     State(newRoot, newWd)
-  }
-
-  override def apply(state: State): State = {
-    val wd = state.wd
-    if(wd.hasEntry(name)) {
-      state.setMessage(s"Entry $name already exists!")
-    } else if (name.contains(Directory.SEPARATOR)) {
-      // TODO mkdir -p something/somethingElse
-      state.setMessage(s"$name must not contains separators!")
-    } else if (checkIllegal(name)) {
-      state.setMessage(s"$name: illegal entry name!")
-    } else {
-      makeDirectory(name, state)
-    }
   }
 }
