@@ -22,6 +22,8 @@ object Command {
       state.setMessage(s"$name: incomplete command!")
   }
 
+  val TOUCH = "touch"
+
   def from(input: String): Command  = {
     val tokens: Array[String] = input.split(" ")
 
@@ -33,6 +35,9 @@ object Command {
       new Ls
     } else if (PWD.equals(tokens(0))) {
       new Pwd
+    } else if (TOUCH.equals(tokens(0))) {
+      if (tokens.length < 2) incompleteCommand(MKDIR)
+      else new Touch(tokens(1))
     } else new UnknownCommand
   }
 }
