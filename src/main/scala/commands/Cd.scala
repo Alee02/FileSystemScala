@@ -24,6 +24,7 @@ class Cd(dir: String) extends Command {
     // eliminate/collapse relative tokens.
     @tailrec
     def collapseRelativeTokens(path: List[String], result: List[String]): List[String] = {
+
       if (path.isEmpty) result
       else if (".".equals(path.head)) collapseRelativeTokens(path.tail, result)
       else if ("..".equals(path.head)) {
@@ -33,10 +34,10 @@ class Cd(dir: String) extends Command {
         collapseRelativeTokens(path.tail, result :+ path.head)
       }
     }
-
+t add
     val newTokens = collapseRelativeTokens(tokens, List())
 
-    findEntryHelper(root, tokens)
+    findEntryHelper(root, newTokens)
 
   }
 
