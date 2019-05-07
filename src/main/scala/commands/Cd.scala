@@ -41,13 +41,7 @@ class Cd(dir: String) extends Command {
   }
 
   override def apply(state: State): State = {
-    /*
-    cd /something/somethingElse/.../
-    cd a/b/c/ = relative to the current working directory
-    cd ..
-    cd .
-    cd a/./.././a/
-     */
+
 
     // 1. find root
     val root = state.root
